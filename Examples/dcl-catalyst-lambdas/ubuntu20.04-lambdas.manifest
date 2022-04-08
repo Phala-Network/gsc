@@ -1,0 +1,24 @@
+libos.check_invalid_pointers = false
+
+loader.pal_internal_mem_size = "128M"
+# this can be removed if we hard-code the env variables
+loader.insecure__use_host_env = true
+
+# Node.js requires eventfd2() emulation otherwise fails on `(uv_loop_init(&tracing_loop_)) == (0)'
+sys.insecure__allow_eventfd = true
+
+sgx.nonpie_binary = true
+sgx.enclave_size = "4G"
+sgx.thread_num = 64
+
+fs.mounts = [
+  { path = "/app", uri = "file:/app" },
+]
+
+sgx.trusted_files = [
+  "file:/app/"
+]
+
+sgx.protected_files = [
+  "file:/app/storage/lambdas/"
+]
